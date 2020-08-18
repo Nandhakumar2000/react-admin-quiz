@@ -114,7 +114,6 @@ this.closeModal = this.closeModal.bind(this);
     axios.post('http://localhost:5000/games/update/' + this.props.match.params.id, game)
       .then(res => console.log(res.data));
    this.closeModal();
-    // window.reload();
     }
     else{
         const des = {
@@ -139,7 +138,6 @@ this.closeModal = this.closeModal.bind(this);
     axios.post('http://localhost:5000/games/update/' + this.props.match.params.id, game)
       .then(res => console.log(res.data));
    this.closeModal();
-     // window.reload();
     }
     
   }
@@ -168,9 +166,26 @@ this.closeModal = this.closeModal.bind(this);
   deleteGame(id) {
     axios.delete('http://localhost:5000/games/'+id)
       .then(response => { console.log(response.data)});
-    this.setState({
-      games: this.state.games.filter(el => el._id !== id)
-    })
+     window.location = "/";
+  }
+
+  deleteQuestion(index){
+  var joined = this.state.questions.splice(index,1);
+  const game = {
+      gameName: this.state.gameName,
+      gameBanner: this.state.gameBanner,
+      questionTime: this.state.questionTime,
+      grandPriceImage: this.state.grandPriceImage,
+      gameType: this.state.gameType,
+      startTime: this.state.startTime,
+      endTime: this.state.endTime,
+      questions:joined
+  }
+  console.log(index);
+  console.log(game);
+
+axios.post('http://localhost:5000/games/update/' + this.props.match.params.id, game)
+.then();
   }
 
   questionList(){
@@ -181,7 +196,7 @@ this.closeModal = this.closeModal.bind(this);
         <td>{currentquestion.shuffledAnswer}</td>
         <td>{currentquestion.image}</td>
         <td>
-        <a href="#" onClick={() => this.openModal("edit",i,currentquestion.question,currentquestion.answer,currentquestion.shuffledAnswer,currentquestion.image)} >edit</a> | <a href="#" >delete</a>
+        <a href="#" onClick={() => this.openModal("edit",i,currentquestion.question,currentquestion.answer,currentquestion.shuffledAnswer,currentquestion.image)} >edit</a> | <a href="#" onClick={() => this.deleteQuestion(i)}>delete</a>
         </td>
       </tr>;
       })
@@ -196,7 +211,7 @@ this.closeModal = this.closeModal.bind(this);
       <td>{this.state.questions.length}</td>
       <td>{this.state.questionTime} (in Seconds)</td>
       <td>
-        <Link to = {"/editgame/" + this.state._id} >edit</Link> | <a href="#" >delete</a>
+        <Link to = {"/editgame/" + this.state._id} >edit</Link> | <a href="#" onClick={() => this.deleteGame(this.state._id)}>delete</a>
       </td>
     </tr> ;
   }

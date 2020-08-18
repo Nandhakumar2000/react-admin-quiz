@@ -6,6 +6,7 @@ import GamesList from './components/games.component';
 import Game from './components/game.component';
 import CreateGame from './components/addGame.component';
 import EditGame from './components/editGame.component';
+import GoogleBtn from './components/google-sign-in.component';
 
 
 function App() {
@@ -18,6 +19,7 @@ function App() {
       <Route path="/games/:id" component={Game} />
       <Route path="/add" component={CreateGame} />
       <Route path="/editgame/:id" component={EditGame} />
+      <Route path="/signin" component={GoogleBtn} />
       </div>
     </Router>
   );

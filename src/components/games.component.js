@@ -11,7 +11,7 @@ const Game = props => (
     <td>{props.game.questions.length}</td>
     <td>{props.game.questionTime} (in Seconds)</td>
     <td>
-      <Link to={"/Games/"+props.game._id}>edit</Link> | <a href="#" onClick={() => { props.deleteGame(props.game._id) }}>delete</a>
+      <Link to={"/Games/"+props.game._id}>View</Link>
     </td>
   </tr>
 )
@@ -27,6 +27,11 @@ export default class GamesList extends Component {
   }
 
   componentDidMount() {
+    if(sessionStorage.getItem("signedin") == 'true'){
+    }
+    else{
+      window.location = "/signin";
+    }
     axios.get('http://localhost:5000/games/')
       .then(response => {
         this.setState({ games: response.data })

@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import axios from 'axios';
 import DateTimePicker from 'react-datetime-picker';
+import InputColor from 'react-input-color';
 
 export default class CreateGame extends Component {
   constructor(props) {
@@ -11,6 +12,8 @@ export default class CreateGame extends Component {
     this.onChangequestionTime = this.onChangequestionTime.bind(this);
     this.onChangegameBanner = this.onChangegameBanner.bind(this);
     this.onChangegrandPriceImage = this.onChangegrandPriceImage.bind(this);
+    this.onChangegradientColor1 = this.onChangegradientColor1.bind(this);
+    this.onChangegradientColor2 = this.onChangegradientColor2.bind(this);
     this.onSubmit = this.onSubmit.bind(this);
 
     this.state = {
@@ -21,6 +24,8 @@ export default class CreateGame extends Component {
         gameType: '',
         startTime: '',
         endTime: '',
+        gradientColor1 :'',
+        gradientColor2: '',
         questions:[]
     }
   }
@@ -56,6 +61,17 @@ export default class CreateGame extends Component {
         questionTime: e.target.value
     })
   }
+  onChangegradientColor1(val){
+    this.setState({
+      gradientColor1: val
+    })
+  }
+
+  onChangegradientColor2(val){
+    this.setState({
+     gradientColor2: val
+    })
+  }
 
   onChangestartTime  = date => this.setState({ startTime:date })
   onChangeendTime  = date => this.setState({ endTime:date })
@@ -70,6 +86,8 @@ export default class CreateGame extends Component {
         gameType: this.state.gameType,
         startTime: this.state.startTime,
         endTime: this.state.endTime,
+        gradientColor1: this.state.gradientColor1,
+        gradientColor2: this.state.gradientColor2,
         questions:[]
     }
 
@@ -130,6 +148,15 @@ export default class CreateGame extends Component {
               value={this.state.questionTime}
               onChange={this.onChangequestionTime}
               />
+        </div>
+        <div className="form-group">
+          <label>Gradient Color 1: </label>
+          <input type="color" value={this.state.gradientColor1} onChange={e => this.onChangegradientColor1(e.target.value)} />
+
+        </div>
+        <div className="form-group">
+          <label>Gradient Color 2: </label>
+          <input type="color" value={this.state.gradientColor2} onChange={e => this.onChangegradientColor2(e.target.value)} />
         </div>
         <div className="form-group">
         <label>Start Time: </label><br/>
